@@ -49,23 +49,34 @@
 	--40
 -- 10.	Add the code to order the query in #9 from highest to lowest average star rating. Which company with more than 5000 reviews across all locations in the dataset has the highest star rating? What is that rating?
 -- SELECT COUNT(DISTINCT company)
--- -- SELECT DISTINCT company, AVG(star_rating)
+-- SELECT company, AVG(star_rating)
 -- FROM data_analyst_jobs
 -- WHERE review_count > 5000
--- --GROUP BY company
+-- GROUP BY company
+-- ORDER BY AVG(star_rating) DESC
+	--"General Motors"	4.1999998090000000
 -- 11.	Find all the job titles that contain the word ‘Analyst’. How many different job titles are there? 
 -- SELECT COUNT(DISTINCT title)
 -- from data_analyst_jobs
 -- WHERE title like '%Analyst%'
-
+	-- 754
 -- 12.	How many different job titles do not contain either the word ‘Analyst’ or the word ‘Analytics’? What word do these positions have in common?
--- SELECT COUNT(DISTINCT title)
+-- SELECT DISTINCT title
 -- FROM data_analyst_jobs
--- WHERE title NOT LIKE '%Analyst%' AND title NOT LIKE '%Analytics%'
-	--
+-- WHERE title NOT ILIKE '%Analyst%' AND title NOT ILIKE '%Analytics%'
+	--4
+	--They all have "Tableau" in the title. 
 
 -- **BONUS:**
 -- You want to understand which jobs requiring SQL are hard to fill. Find the number of jobs by industry (domain) that require SQL and have been posted longer than 3 weeks. 
 --  - Disregard any postings where the domain is NULL. 
 --  - Order your results so that the domain with the greatest number of `hard to fill` jobs is at the top. 
 --   - Which three industries are in the top 4 on this list? How many jobs have been listed for more than 3 weeks for each of the top 4?
+-- SELECT domain AS industry, COUNT(*) AS number_jobs
+-- FROM data_analyst_jobs
+-- WHERE domain IS NOT NULL
+-- AND skill LIKE '%SQL%'
+-- AND days_since_posting > 21
+-- GROUP BY domain
+-- ORDER BY number_jobs DESC
+	--"Internet and Software","Banks and Financial Services","Consulting and Business Services","Health Care"
